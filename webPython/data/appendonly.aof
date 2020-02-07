@@ -29,3 +29,10 @@ $7
 counter
 $1
 1
+*3
+$6
+INCRBY
+$7
+counter
+$1
+1
