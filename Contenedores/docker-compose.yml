@@ -1,0 +1,22 @@
+version: '3.3'
+
+
+services: 
+  database:
+    image: postgres:12.1-alpine
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_PASSWORD=ejemplo
+  pgadmin: 
+    image: dpage/pgadmin4:latest
+    ports:
+      - '5000:80'
+      - '5050:5050'
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=christian@micorreo.com
+      - PGADMIN_DEFAULT_PASSWORD=test
+#permite habilitar el puerto de uso exclusivo para contendores de la misma red
+    expose:
+      - '5432'
+
