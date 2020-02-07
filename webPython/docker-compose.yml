@@ -4,8 +4,10 @@ version: '3.3'
 services:
   web:
     build: ./web
-    ports:
+    ports:      
       - '8080:80'
+    volumes: 
+      - './web:/app'
   redis:
     image: redis
     ports: 
