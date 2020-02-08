@@ -5,8 +5,6 @@ services:
   web:
     build: 
       ./web
-    ports:      
-      - '8080:80'
     volumes:       
       - './web:/app'
   redis:
@@ -16,3 +14,11 @@ services:
     volumes: 
       - "./data:/data"
     command: redis-server --appendonly yes
+  balancer:
+    image: dockercloud/haproxy
+    ports: 
+      - 8080:80
+    links:
+      - web
+    volumes: 
+      - /var/run/docker.sock:/var/run/docker.sock
