@@ -3,9 +3,16 @@ version: '3.3'
 
 services:
   web:
-    build: ./web
-    ports:
-      - '8080:80'
+    build: 
+      ./web
+    volumes:       
+      - './web:/app'
+    depends_on:
+      - redis
+    networks: 
+      - back
+      - front
+
   redis:
     image: redis
     ports: 
@@ -13,3 +20,21 @@ services:
     volumes: 
       - "./data:/data"
     command: redis-server --appendonly yes
+    networks: 
+      - back
+      
+  balancer:
+    image: dockercloud/haproxy
+    ports: 
+      - 8080:80
+    links:
+      - web
+    volumes: 
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on: 
+      - web
+    networks: 
+      - front
+networks: 
+  front:
+  back:  

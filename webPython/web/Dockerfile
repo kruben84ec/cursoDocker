@@ -7,6 +7,8 @@ WORKDIR /app
 # Copiamos todos los archivos del build context al directorio /app del contenedor
 COPY . /app
 
+COPY ./requirements.txt /app
+
 # Ejecutamos pip para instalar las dependencias en el contenedor
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
 
